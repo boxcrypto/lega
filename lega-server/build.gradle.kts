@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 dependencies {
@@ -43,7 +42,8 @@ dependencies {
     implementation("org.yaml:snakeyaml:2.2")
 }
 
-tasks.shadowJar {
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveFileName.set("LEGA-${project.version}.jar")
     manifest {
         attributes(
@@ -51,8 +51,12 @@ tasks.shadowJar {
             "Multi-Release" to "true"
         )
     }
+    from(configurations.runtimeClasspath.get()
+        .filter { it.isFile }
+        .map { zipTree(it) }
+    )
 }
 
 tasks.build {
-    dependsOn(tasks.shadowJar)
+    dependsOn(tasks.jar)
 }

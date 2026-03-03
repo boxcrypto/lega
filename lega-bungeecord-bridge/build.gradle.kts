@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 description = "LEGA BungeeCord/Waterfall/Travertine/Velocity Bridge"
@@ -25,7 +24,8 @@ dependencies {
     implementation("org.yaml:snakeyaml:2.2")
 }
 
-tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveClassifier.set("all")
     manifest {
         attributes["Implementation-Title"]   = "lega-bungeecord-bridge"
@@ -33,4 +33,8 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
         attributes["Implementation-Vendor"]  = "maatsuh"
         attributes["Built-By"]               = "maatsuh"
     }
+    from(configurations.runtimeClasspath.get()
+        .filter { it.isFile }
+        .map { zipTree(it) }
+    )
 }
