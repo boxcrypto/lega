@@ -32,11 +32,6 @@ dependencies {
     // FastUtil
     implementation("it.unimi.dsi:fastutil:8.5.13")
 
-    // TerminalConsoleAppender for fancy console
-    implementation("net.minecrell:terminalconsoleappender:1.3.0")
-    implementation("org.jline:jline-terminal-jansi:3.25.1")
-    implementation("org.jline:jline-reader:3.25.1")
-
     // Gson / SnakeYAML
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.yaml:snakeyaml:2.2")
