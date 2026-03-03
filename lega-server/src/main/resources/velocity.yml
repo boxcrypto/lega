@@ -1,0 +1,73 @@
+# ================================================================
+# LEGA Velocity Bridge Configuration
+# ================================================================
+# Configure the encrypted LEGA ↔ Velocity bridge.
+# Requires the LEGA Velocity plugin installed on your proxy.
+# ================================================================
+
+# Enable the Velocity bridge
+# When enabled, this server REQUIRES connections to come through Velocity
+enabled: false
+
+# Forwarding mode:
+#   MODERN  - Velocity modern forwarding (recommended, most secure)
+#   LEGACY  - Legacy BungeeCord forwarding (less secure)
+#   NONE    - No forwarding (standalone or BungeeCord with IP-forward: false)
+forwarding-mode: MODERN
+
+# Velocity modern forwarding secret
+# MUST match the secret in your Velocity velocity.toml [advanced] section
+# Generate with: openssl rand -base64 32
+forwarding-secret: "CHANGE_ME_PLEASE_USE_A_STRONG_RANDOM_SECRET"
+
+# ─────────────────────────────────────────
+# CROSS-SERVER FEATURES
+# ─────────────────────────────────────────
+
+# Cross-server plugin messaging
+# Allows LEGA servers to send messages to each other via Velocity
+cross-server-messaging: true
+
+# Cross-server teleport
+# Allows teleporting players between LEGA servers through Velocity
+cross-server-teleport: true
+
+# Synchronize permission states across servers
+sync-permissions: true
+
+# Synchronize staff mode across servers (vanish, freeze, etc.)
+sync-staff-mode: true
+
+# ─────────────────────────────────────────
+# SECURITY
+# ─────────────────────────────────────────
+
+# Encrypt the LEGA↔Velocity bridge channel with AES-256-GCM
+# Prevents eavesdropping on admin communications (staff mode, permissions)
+encrypted-bridge: true
+
+# Anti-spoofing: validate HMAC signature on all forwarded connections
+# Prevents players from bypassing Velocity by connecting directly
+# ALWAYS keep this true in production!
+anti-spoofing: true
+
+# ─────────────────────────────────────────
+# PLUGIN CHANNELS
+# ─────────────────────────────────────────
+# These channels are registered for LEGA↔Velocity communication
+# Do not change unless you know what you're doing
+
+channels:
+  main: "lega:main"
+  teleport: "lega:teleport"
+  permissions: "lega:perms"
+  staff: "lega:staff"
+
+# ─────────────────────────────────────────
+# TIMEOUTS
+# ─────────────────────────────────────────
+# Timeout for cross-server teleport request (ms)
+teleport-timeout-ms: 5000
+
+# Timeout for permission sync response (ms)
+permissions-sync-timeout-ms: 3000

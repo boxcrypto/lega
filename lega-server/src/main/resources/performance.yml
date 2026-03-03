@@ -1,0 +1,109 @@
+# ================================================================
+# LEGA Performance Engine Configuration
+# ================================================================
+# These settings control LEGA's advanced performance subsystems.
+# Most settings can be hot-reloaded with /lega reload
+# ================================================================
+
+# ─────────────────────────────────────────
+# AUTO-PERFORMANCE MODE
+# ─────────────────────────────────────────
+# When TPS drops below the threshold, LEGA automatically:
+# - Reduces particle effects
+# - Reduces entity spawn rates
+# - Increases entity activation thresholds
+# - Throttles chunk ticking
+auto-performance-mode: true
+auto-performance-tps-threshold: 17.0
+auto-performance-recovery-tps: 19.5
+
+# ─────────────────────────────────────────
+# TICK ENGINE
+# ─────────────────────────────────────────
+target-tps: 20
+
+# Dynamic Tick Skipping: When a tick is overrunning, skip non-critical work
+dynamic-tick-skip: true
+
+# Adaptive Entity Processing: Reduce entity processing granularity under load
+adaptive-entity-processing: true
+
+# Regionized Tick Engine (experimental - similar to Folia but stable)
+# Allows different world regions to tick on separate virtual threads
+# WARNING: May cause subtle synchronization issues with some plugins
+regionized-tick: false
+
+# ─────────────────────────────────────────
+# ENTITY OPTIMIZATION
+# ─────────────────────────────────────────
+# Entities beyond this range (blocks) from any player skip full AI
+entity-activation-range: 32
+
+# Merge nearby items/XP orbs within this radius (blocks)
+entity-merge-radius: 2.5
+
+# Max entities cramming in one block (vanilla: 24)
+max-entity-cramming: 24
+
+# Disable entity AI entirely in chunks with no nearby players
+disable-entity-ai-in-empty-chunks: true
+
+# Run pathfinding on LEGA's CPU thread pool instead of main thread
+async-pathfinding: true
+
+# AI-based predictive despawn system
+# Despawns mobs unlikely to be encountered by players
+predictive-despawn: true
+predictive-despawn-distance: 96
+predictive-despawn-age-ticks: 12000
+
+# ─────────────────────────────────────────
+# CHUNK SYSTEM
+# ─────────────────────────────────────────
+# Load chunks asynchronously (never blocks the main thread)
+async-chunk-load: true
+
+# Compute lighting asynchronously
+async-lighting: true
+
+# Use Java NIO channels for chunk file I/O
+nio-chunk-io: true
+
+# Chunk tick throttling: limit chunks ticked per interval during high load
+chunk-tick-throttle: true
+
+# Use ZSTD compression for chunks (faster than Zlib, slightly larger)
+# Requires ZSTD native library (auto-detected)
+chunk-compression-zstd: true
+
+# ─────────────────────────────────────────
+# GC MONITORING
+# ─────────────────────────────────────────
+gc-monitor-enabled: true
+
+# Warn if a GC pause exceeds this threshold (ms)
+gc-pause-warn-threshold-ms: 50
+
+# Warn if heap usage exceeds this percentage
+gc-memory-alert-threshold-percent: 85
+
+# ─────────────────────────────────────────
+# AI SERVER OPTIMIZER
+# ─────────────────────────────────────────
+# Learns server patterns and auto-tunes parameters
+ai-server-optimizer: true
+ai-optimizer-log-insights: true
+
+# ─────────────────────────────────────────
+# MULTI-CORE REGION ENGINE
+# ─────────────────────────────────────────
+# Experimental: allows different regions to tick on separate threads
+# Only enable if you understand the implications for plugin compatibility
+multi-core-region-engine: false
+multi-core-region-thread-count: 4
+
+# ─────────────────────────────────────────
+# PERFORMANCE SCORE
+# ─────────────────────────────────────────
+# Update interval for /lega score (seconds)
+performance-score-update-interval: 5

@@ -1,0 +1,121 @@
+# ================================================================
+# LEGA Security Configuration
+# ================================================================
+# LEGA's multi-layer security protects against crashes, exploits,
+# bots, and malicious players.
+# ================================================================
+
+# ─────────────────────────────────────────
+# ANTI-CRASH
+# ─────────────────────────────────────────
+# Protect against known crash exploits (NBT depth, oversized packets, etc.)
+anti-crash: true
+
+# ─────────────────────────────────────────
+# PACKET FIREWALL
+# ─────────────────────────────────────────
+# Inspect all incoming packets for known exploits
+packet-firewall: true
+
+# Maximum allowed packet size (bytes)
+# Packets larger than this are immediately dropped
+max-packet-size: 32767
+
+# Block NaN/Infinity position packets (crash exploit)
+block-invalid-positions: true
+
+# Validate player movement packets
+movement-validation: true
+
+# ─────────────────────────────────────────
+# RATE LIMITER
+# ─────────────────────────────────────────
+# Limit packets per second per connection
+rate-limiter: true
+rate-limit-packets-per-second: 300
+
+# Action-specific limits (packets per second)
+rate-limit-chat: 2
+rate-limit-commands: 5
+rate-limit-interactions: 20
+rate-limit-movement: 40
+
+# ─────────────────────────────────────────
+# ANTI-BOT
+# ─────────────────────────────────────────
+anti-bot: true
+
+# Max connections from one IP within 5 seconds before flagging as bot
+anti-bot-connections-per-5s: 5
+
+# Max failed logins before IP block
+anti-bot-max-failed-logins: 10
+
+# Activate lockdown mode when a bot attack is detected
+# (temporarily blocks all new connections for a short period)
+anti-bot-lockdown: true
+anti-bot-lockdown-duration-seconds: 30
+
+# ─────────────────────────────────────────
+# FLOOD DETECTION
+# ─────────────────────────────────────────
+flood-detection: true
+flood-threshold-connections-per-second: 10
+
+# ─────────────────────────────────────────
+# BOOK-BAN PROTECTION
+# ─────────────────────────────────────────
+# Prevent "book ban" exploit (oversized written book NBT)
+book-ban-protection: true
+max-book-pages: 100
+max-book-total-chars: 12800
+
+# ─────────────────────────────────────────
+# CHUNK EXPLOIT PROTECTION
+# ─────────────────────────────────────────
+# Validate chunk coordinates to prevent chunk exploit crashes
+chunk-exploit-protection: true
+
+# ─────────────────────────────────────────
+# SIGN PROTECTION
+# ─────────────────────────────────────────
+# Limit sign text length to prevent crash exploits
+sign-protection: true
+max-sign-line-length: 64
+
+# ─────────────────────────────────────────
+# SECURITY MONITORING
+# ─────────────────────────────────────────
+# Log security events to file
+security-log: true
+security-log-file: "logs/security.log"
+
+# Show security alerts in console
+console-security-alerts: true
+
+# Security risk score update interval (seconds)
+risk-score-update-interval: 10
+
+# ─────────────────────────────────────────
+# IP MANAGEMENT
+# ─────────────────────────────────────────
+# Permanently blocked IPs (in addition to /lega security block)
+blocked-ips:
+  # - "1.2.3.4"
+  # - "5.6.7.8"
+
+# ─────────────────────────────────────────
+# ASYNC PLUGIN GUARD
+# ─────────────────────────────────────────
+# Detect plugins that block the main thread or use heavy I/O
+async-plugin-guard: true
+
+# Warn if a main-thread task takes longer than this (ms)
+async-plugin-guard-warn-threshold-ms: 5
+
+# ─────────────────────────────────────────
+# VPN / PROXY DETECTION
+# ─────────────────────────────────────────
+# (Requires external API integration - optional feature)
+vpn-detection: false
+# vpn-api-key: "your_api_key"

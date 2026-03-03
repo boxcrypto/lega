@@ -1,0 +1,61 @@
+# LEGA - Minecraft Server Software
+# .gitignore
+
+# Gradle
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+*.class
+
+# Eclipse
+.settings/
+.classpath
+.project
+bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Minecraft Server
+server/
+*.log
+logs/
+world/
+world_nether/
+world_the_end/
+plugins/
+eula.txt
+server.properties
+ops.json
+whitelist.json
+banned-ips.json
+banned-players.json
+
+# LEGA specific
+lega-profiler-output/
+lega-debug/
+*.heapdump
+*.hprof
+gc.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,15 @@
+# Normalize line endings to LF in the repository; convert to CRLF on Windows checkout
+* text=auto eol=lf
+
+# Force shell scripts to LF always
+*.sh text eol=lf
+
+# Gradle wrapper script
+gradlew text eol=lf
+
+# Binary files — no conversion
+*.jar binary
+*.png binary
+*.ico binary
+*.heapdump binary
+*.hprof binary

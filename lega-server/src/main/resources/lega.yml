@@ -1,0 +1,64 @@
+# ================================================================
+# LEGA Server - Main Configuration
+# ================================================================
+# LEGA is a high-performance Minecraft server engine
+# Supporting: 1.7.10 → 1.21.x | Java 21+ required
+# ================================================================
+
+# Server bind port
+port: 25565
+
+# Maximum players (set higher than expected for buffer)
+max-players: 500
+
+# Server MOTD (supports legacy color codes with &)
+motd: "&5&lLEGA &8» &7A &5&lHigh Performance &7Minecraft Network"
+
+# Online mode - set false when behind Velocity proxy
+# When using Velocity, set velocity.yml enabled: true instead
+online-mode: false
+
+# Packet compression threshold (bytes)
+# Lower = more CPU usage, less bandwidth
+# Higher = less CPU, more bandwidth
+# Recommended: 256 for LAN, 64 for high-latency networks
+compression-threshold: 256
+
+# Enable BungeeCord compatibility (legacy, prefer Velocity)
+bungeecord: false
+
+# Log console commands to file
+log-commands: true
+
+# Enable ANSI color in console output
+console-has-color: true
+
+# Server icon (server-icon.png in server root)
+server-icon: true
+
+# View distance (in chunks) - LEGA can handle higher values with async chunks
+view-distance: 10
+
+# Simulation distance (entity tick range)
+simulation-distance: 8
+
+# Max allowed tick time before considering server overloaded (ms)
+max-tick-time: 60
+
+# QUERY protocol support
+enable-query: false
+query-port: 25565
+
+# RCON support
+enable-rcon: false
+rcon-port: 25575
+rcon-password: "change_me"
+
+# Whitelist
+whitelist: false
+
+# Hardcore mode
+hardcore: false
+
+# Prevent proxy connections (extra check alongside velocity)
+prevent-proxy-connections: false
