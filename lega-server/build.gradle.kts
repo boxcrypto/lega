@@ -43,6 +43,7 @@ dependencies {
 }
 
 tasks.jar {
+    dependsOn(configurations.runtimeClasspath)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveFileName.set("LEGA-${project.version}.jar")
     manifest {
@@ -52,8 +53,7 @@ tasks.jar {
         )
     }
     from(configurations.runtimeClasspath.get()
-        .filter { it.isFile }
-        .map { zipTree(it) }
+        .map { if (it.isDirectory) it else zipTree(it) }
     )
 }
 

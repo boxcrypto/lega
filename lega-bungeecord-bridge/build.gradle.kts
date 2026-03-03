@@ -25,6 +25,7 @@ dependencies {
 }
 
 tasks.jar {
+    dependsOn(configurations.runtimeClasspath)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveClassifier.set("all")
     manifest {
@@ -34,7 +35,6 @@ tasks.jar {
         attributes["Built-By"]               = "maatsuh"
     }
     from(configurations.runtimeClasspath.get()
-        .filter { it.isFile }
-        .map { zipTree(it) }
+        .map { if (it.isDirectory) it else zipTree(it) }
     )
 }
