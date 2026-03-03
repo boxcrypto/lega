@@ -34,7 +34,7 @@ bin/
 *.code-workspace
 
 # Minecraft Server
-server/
+/server/
 *.log
 logs/
 world/
