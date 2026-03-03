@@ -320,7 +320,7 @@ worlds.destroyInstance("game-1");
 
 ```bash
 # Clone
-git clone https://github.com/lega-project/lega.git
+git clone https://github.com/boxcrypto/lega.git
 cd lega
 
 # Build all modules
