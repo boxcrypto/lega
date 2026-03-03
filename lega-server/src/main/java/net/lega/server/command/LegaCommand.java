@@ -99,18 +99,28 @@ public final class LegaCommand {
     }
 
     private boolean handlePerformance(String sender, String[] args) {
-        sendMessage(sender, PURPLE + BOLD + "=== LEGA Performance ===" + RESET);
+        sendMessage(sender, PURPLE + BOLD + "=== LEGA Performance ==" + RESET);
 
-        LegaTickEngine tick = null; // would be server.getTickEngine()
-        sendMessage(sender, CYAN + "TPS     : " + RESET + "20.00 / 20.00 / 20.00 (1m/5m/15m)");
-        sendMessage(sender, CYAN + "MSPT    : " + RESET + "12.3ms");
+        var te = server.getTickEngine();
+        if (te != null) {
+            double[] tps = te.getTPS();
+            sendMessage(sender, CYAN + "TPS     : " + RESET
+                    + String.format("%.2f / %.2f / %.2f (1m/5m/15m)", tps[0], tps[1], tps[2]));
+            sendMessage(sender, CYAN + "MSPT    : " + RESET
+                    + String.format("last=%.2fms  avg=%.2fms  max=%.2fms",
+                    te.getLastMspt(), te.getAvgMspt(), te.getMaxMspt()));
+            sendMessage(sender, CYAN + "Ticks   : " + RESET + te.getTickCount());
+        } else {
+            sendMessage(sender, CYAN + "TPS     : " + RESET + "(tick engine not started)");
+        }
 
         Runtime rt = Runtime.getRuntime();
         long usedMb  = (rt.totalMemory() - rt.freeMemory()) / (1024 * 1024);
         long totalMb = rt.maxMemory() / (1024 * 1024);
         sendMessage(sender, CYAN + "Memory  : " + RESET + usedMb + "MB / " + totalMb + "MB");
+        sendMessage(sender, CYAN + "Threads : " + RESET + Thread.getAllStackTraces().size());
+        sendMessage(sender, CYAN + "Uptime  : " + RESET + formatUptime(server.getUptimeMillis()));
         sendMessage(sender, CYAN + "Chunks  : " + RESET + "N/A (no worlds loaded)");
-        sendMessage(sender, CYAN + "Entities: " + RESET + "0");
         return true;
     }
 

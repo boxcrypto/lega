@@ -19,6 +19,7 @@ import net.lega.velocity.LegaVelocityBridge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -72,6 +73,9 @@ public final class LegaServer {
         LOGGER.info("[LEGA] Loading configuration...");
         this.configuration = new LegaConfiguration(serverRoot);
         this.configuration.load();
+
+        // ── Phase 2b: Server directory structure ────────────────────────────
+        createDirectoryStructure(serverRoot);
 
         // ── Phase 3: Build version negotiator ───────────────────────────────
         versionNegotiator = new VersionNegotiator(
@@ -188,6 +192,34 @@ public final class LegaServer {
                     ? bungeeBridge.getConfig().getPlatform().getDisplayName()
                     : "none");
         }
+    }
+
+    // =========================================================================
+    // Directory structure
+    // =========================================================================
+
+    private void createDirectoryStructure(Path root) throws Exception {
+        // World directories (overworld, nether, end)
+        String levelName = "world";
+        try {
+            if (configuration != null) levelName = configuration.getLevelName();
+        } catch (Exception ignored) { }
+
+        Path world = root.resolve(levelName);
+        Files.createDirectories(world.resolve("region"));
+        Files.createDirectories(world.resolve("playerdata"));
+        Files.createDirectories(world.resolve("data"));
+        Files.createDirectories(root.resolve(levelName + "_nether").resolve("DIM-1").resolve("region"));
+        Files.createDirectories(root.resolve(levelName + "_the_end").resolve("DIM1").resolve("region"));
+
+        // Plugin and data directories
+        Files.createDirectories(root.resolve("plugins"));
+        Files.createDirectories(root.resolve("logs"));
+        Files.createDirectories(root.resolve("crash-reports"));
+        Files.createDirectories(root.resolve("config"));
+        Files.createDirectories(root.resolve("mods"));
+
+        LOGGER.info("[LEGA] Server directory structure ready.");
     }
 
     // =========================================================================
