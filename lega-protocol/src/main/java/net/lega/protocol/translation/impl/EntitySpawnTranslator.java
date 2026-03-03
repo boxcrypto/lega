@@ -28,6 +28,7 @@ import java.util.UUID;
 public final class EntitySpawnTranslator implements PacketTranslator {
 
     private static final int PROTOCOL_1_9  = MinecraftVersion.V1_9.getProtocolId();
+    private static final int PROTOCOL_1_13 = MinecraftVersion.V1_13.getProtocolId();
     private static final int PROTOCOL_1_14 = MinecraftVersion.V1_14.getProtocolId();
     private static final int PROTOCOL_1_19 = MinecraftVersion.V1_19.getProtocolId();
 

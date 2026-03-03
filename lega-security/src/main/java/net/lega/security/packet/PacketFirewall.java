@@ -1,4 +1,4 @@
-﻿package net.lega.security.packet;
+package net.lega.security.packet;
 
 /**
  * @author maatsuh
@@ -18,7 +18,19 @@ public final class PacketFirewall {
 
     private static final Logger LOGGER = LogManager.getLogger("LEGA/Firewall");
 
-    
+    private static final int MAX_PACKET_SIZE_BYTES = 1_048_576; // 1 MB global cap
+
+    /** Per-packet-type size ceilings (packetId → max bytes). */
+    private static final Map<Integer, Integer> PACKET_SIZE_LIMITS = Map.of(
+            0x00, 32_768,   // Handshake
+            0x05, 32_768,   // Login Start
+            0x02, 65_536,   // Login Success
+            0x03, 131_072,  // Set Compression
+            0x04, 65_536    // Login Plugin Request
+    );
+
+    private final LegaSecurityManager securityManager;
+
     public PacketFirewall(LegaSecurityManager securityManager) {
         this.securityManager = securityManager;
     }

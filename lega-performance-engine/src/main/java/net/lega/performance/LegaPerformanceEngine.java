@@ -1,4 +1,4 @@
-﻿package net.lega.performance;
+package net.lega.performance;
 
 /**
  * @author maatsuh
@@ -121,4 +121,28 @@ public final class LegaPerformanceEngine {
     public TickOptimizer getTickOptimizer() { return tickOptimizer; }
     public GcMonitor getGcMonitor() { return gcMonitor; }
     public AIServerOptimizer getAIOptimizer() { return aiOptimizer; }
+
+    // =========================================================================
+    // Internal helpers
+    // =========================================================================
+
+    private void updatePerformanceScore() {
+        int score = 100;
+
+        // Penalise for high GC pause time
+        long gcMs = totalGcPauseMs.get();
+        if (gcMs > 5_000)  score -= 30;
+        else if (gcMs > 1_000) score -= 10;
+
+        // Penalise when auto-performance mode is active
+        if (autoPerformanceActive.get()) score -= 20;
+
+        // Incorporate AI-detected patterns
+        int patterns = aiOptimizer.getDetectedPatterns().size();
+        score -= Math.min(patterns * 5, 30);
+
+        int clamped = Math.max(0, Math.min(100, score));
+        performanceScore.set(clamped);
+        LOGGER.debug("[LEGA/Performance] Score updated: {} (gc={}ms patterns={})", clamped, gcMs, patterns);
+    }
 }

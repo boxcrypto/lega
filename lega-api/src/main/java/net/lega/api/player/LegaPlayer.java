@@ -42,10 +42,12 @@ public interface LegaPlayer {
     int getProtocolVersion();
 
     /**
-     * Returns the {@link net.lega.protocol.MinecraftVersion} enum
-     * for this player's client, if recognised.
+     * Returns the canonical Minecraft version string (e.g. {@code "1.21.4"},
+     * {@code "1.8.9"}) for this player's client, if recognised.
+     * Returns an empty optional for protocol versions not enumerated by the
+     * protocol layer.
      */
-    Optional<net.lega.protocol.MinecraftVersion> getMinecraftVersion();
+    Optional<String> getMinecraftVersion();
 
     /** Returns the average network latency in milliseconds (ping). */
     int getPing();

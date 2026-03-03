@@ -1,4 +1,4 @@
-﻿package net.lega.performance;
+package net.lega.performance;
 
 /**
  * @author maatsuh

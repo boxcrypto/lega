@@ -1,4 +1,4 @@
-﻿package net.lega.security.ratelimit;
+package net.lega.security.ratelimit;
 
 /**
  * @author maatsuh
@@ -18,7 +18,11 @@ public final class RateLimiter {
 
     private static final Logger LOGGER = LogManager.getLogger("LEGA/RateLimit");
 
-    
+    private static final double MAX_TOKENS  = 500.0;  // max packets per window
+    private static final double REFILL_RATE = 500.0;  // tokens refilled per second
+
+    private Cache<String, TokenBucket> buckets;
+
     public void initialize() {
         this.buckets = Caffeine.newBuilder()
                 .expireAfterAccess(30, TimeUnit.SECONDS)

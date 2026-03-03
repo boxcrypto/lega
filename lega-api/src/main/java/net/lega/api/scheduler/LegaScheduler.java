@@ -1,4 +1,4 @@
-﻿package net.lega.api.scheduler;
+package net.lega.api.scheduler;
 
 /**
  * @author maatsuh
@@ -83,4 +83,13 @@ public interface LegaScheduler {
     @NotNull
     ExecutorService getCPUExecutor();
 
+    /** Returns {@code true} when called from the main server thread. */
+    boolean isMainThread();
+
+    /**
+     * Returns the number of tasks currently queued or executing.
+     * This includes both main-thread and async tasks.
+     */
+    int getPendingTaskCount();
+}
     

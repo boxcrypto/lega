@@ -1,4 +1,4 @@
-﻿package net.lega.security;
+package net.lega.security;
 
 /**
  * @author maatsuh

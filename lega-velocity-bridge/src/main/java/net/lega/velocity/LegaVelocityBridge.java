@@ -1,4 +1,4 @@
-﻿package net.lega.velocity;
+package net.lega.velocity;
 
 /**
  * @author maatsuh

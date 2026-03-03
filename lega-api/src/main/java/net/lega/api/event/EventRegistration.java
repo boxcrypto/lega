@@ -1,4 +1,4 @@
-﻿package net.lega.api.event;
+package net.lega.api.event;
 
 /**
  * @author maatsuh
@@ -18,4 +18,10 @@ public interface EventRegistration {
     @NotNull
     EventPriority getPriority();
 
+    /** Removes this handler from the event bus. Idempotent. */
+    void unregister();
+
+    /** Returns {@code true} if this registration is still active. */
+    boolean isActive();
+}
     

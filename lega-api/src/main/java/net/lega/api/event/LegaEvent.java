@@ -1,4 +1,4 @@
-﻿package net.lega.api.event;
+package net.lega.api.event;
 
 /**
  * @author maatsuh

@@ -27,8 +27,8 @@ package net.lega.bungeecord.proxy;
  * @since  1.0.0
  */
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -38,7 +38,7 @@ import java.util.*;
 
 public final class BungeeCordBridgeConfig {
 
-    private static final Logger LOGGER = LogManager.getLogger("LEGA/ProxyBridge");
+    private static final Logger LOGGER = LoggerFactory.getLogger("LEGA/ProxyBridge");
     private static final String FILE_NAME = "proxy.yml";
 
     private final Path filePath;
@@ -84,7 +84,8 @@ public final class BungeeCordBridgeConfig {
 
         Object vsSection = raw.get("velocity-support");
         if (vsSection instanceof Map<?,?> vsMap) {
-            velocitySecret = String.valueOf(vsMap.getOrDefault("secret", "")).trim();
+            Object secretRaw = vsMap.get("secret");
+            velocitySecret = secretRaw != null ? secretRaw.toString().trim() : "";
         }
 
         if (enabled) {

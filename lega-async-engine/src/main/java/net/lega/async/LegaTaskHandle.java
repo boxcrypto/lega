@@ -1,4 +1,4 @@
-﻿package net.lega.async;
+package net.lega.async;
 
 /**
  * @author maatsuh
@@ -36,6 +36,11 @@ final class LegaTaskHandle implements TaskHandle {
 
     @Override
     public boolean isCancelled() { return cancelled.get(); }
+
+    @Override
+    public boolean isDone() {
+        return cancelled.get() || (!isRepeating && executionCount.get() > 0 && !running.get());
+    }
 
     @Override
     public boolean isRepeating() { return isRepeating; }

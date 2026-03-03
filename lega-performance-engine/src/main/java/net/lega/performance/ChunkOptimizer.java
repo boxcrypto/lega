@@ -1,4 +1,4 @@
-﻿package net.lega.performance;
+package net.lega.performance;
 
 /**
  * @author maatsuh
@@ -17,7 +17,32 @@ public final class ChunkOptimizer {
     private static final Logger LOGGER = LogManager.getLogger("LEGA/Chunk");
 
     public enum ThrottleLevel {
-        
+        /** Normal operation — full tick range. */
+        NORMAL,
+        /** Reduced tick range to reclaim CPU. */
+        MODERATE,
+        /** Minimal tick range for high-load situations. */
+        AGGRESSIVE
+    }
+
+    // ── fields ───────────────────────────────────────────────────────────────
+    private volatile boolean asyncChunkLoad   = true;
+    private volatile boolean asyncLighting    = true;
+    private volatile boolean chunkTickThrottle = false;
+    private volatile boolean nioChunkIo       = true;
+
+    private final java.util.concurrent.atomic.AtomicReference<ThrottleLevel> throttleLevel =
+            new java.util.concurrent.atomic.AtomicReference<>(ThrottleLevel.NORMAL);
+
+    private final AtomicLong chunksLoadedAsync     = new AtomicLong(0);
+    private final AtomicLong chunksLoadedSync      = new AtomicLong(0);
+    private final AtomicLong lightingJobsCompleted = new AtomicLong(0);
+
+    public void initialize() {
+        LOGGER.info("[LEGA/Chunk] Chunk optimizer initialized. asyncLoad={} asyncLighting={} throttle={}",
+                asyncChunkLoad, asyncLighting, throttleLevel.get());
+    }
+
     public boolean shouldTickChunk(int chunkX, int chunkZ, int nearestPlayerChunkDist, long currentTick) {
         if (!chunkTickThrottle) return true;
 

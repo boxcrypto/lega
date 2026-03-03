@@ -1,4 +1,4 @@
-﻿package net.lega.example;
+package net.lega.example;
 
 /**
  * @author maatsuh

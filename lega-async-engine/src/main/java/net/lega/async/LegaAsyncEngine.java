@@ -1,4 +1,4 @@
-﻿package net.lega.async;
+package net.lega.async;
 
 /**
  * @author maatsuh

@@ -1,4 +1,4 @@
-﻿package net.lega.api.event;
+package net.lega.api.event;
 
 /**
  * @author maatsuh
@@ -9,4 +9,11 @@
 @FunctionalInterface
 public interface LegaEventHandler<T extends LegaEvent> {
 
+    /**
+     * Handles an event.
+     *
+     * @param event the event to handle; never {@code null}
+     */
+    void handle(T event);
+}
     

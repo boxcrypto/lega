@@ -1,4 +1,4 @@
-﻿package net.lega.performance;
+package net.lega.performance;
 
 /**
  * @author maatsuh
@@ -113,5 +113,16 @@ public final class AIServerOptimizer {
 
     public Map<String, Long> getPluginLagSummary() {
         return Collections.unmodifiableMap(pluginLagMap);
+    }
+
+    /**
+     * Runs a full analysis cycle: detection, heatmap, plugin lag, and insight logging.
+     * Intended to be called periodically (e.g. every 60 s) from a background scheduler.
+     */
+    void analyze() {
+        detectPeakHours();
+        analyzeChunkHeatmap();
+        detectLaggingPlugins();
+        logInsights();
     }
 }

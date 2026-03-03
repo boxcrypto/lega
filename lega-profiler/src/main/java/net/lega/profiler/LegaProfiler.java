@@ -1,4 +1,4 @@
-﻿package net.lega.profiler;
+package net.lega.profiler;
 
 /**
  * @author maatsuh

@@ -23,7 +23,7 @@ import net.lega.protocol.adapter.AbstractVersionAdapter;
  * @author maatsuh
  * @since  1.0.0
  */
-public final class Adapter_1_9 extends AbstractVersionAdapter {
+public class Adapter_1_9 extends AbstractVersionAdapter {
 
     // ── packet IDs ────────────────────────────────────────────────────────
 

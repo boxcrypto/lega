@@ -1,4 +1,4 @@
-﻿package net.lega.security.antibot;
+package net.lega.security.antibot;
 
 /**
  * @author maatsuh
@@ -20,7 +20,18 @@ public final class AntiBotSystem {
 
     private static final Logger LOGGER = LogManager.getLogger("LEGA/AntiBot");
 
-    
+    // ── tuning constants ──────────────────────────────────────────────────────
+    private static final int MAX_CONNECTIONS_PER_5S = 10;
+    private static final int MAX_FAILED_LOGINS      = 5;
+
+    // ── state ─────────────────────────────────────────────────────────────────
+    private final LegaSecurityManager securityManager;
+    private volatile boolean  lockdownMode  = false;
+    private volatile long     lockdownUntil = 0L;
+    private final AtomicLong  totalBotConnectionsBlocked = new AtomicLong(0);
+    private Cache<String, AtomicInteger> connectionAttempts;
+    private Cache<String, AtomicInteger> failedLogins;
+
     public AntiBotSystem(LegaSecurityManager securityManager) {
         this.securityManager = securityManager;
     }
